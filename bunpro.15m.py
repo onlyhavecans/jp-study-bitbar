@@ -58,6 +58,3 @@ if __name__ == '__main__':
         print('---')
         print(f"You have {counts['ghosts']} Ghosts!")
         print('Lessons | href=https://bunpro.jp/learn')
-
-
-

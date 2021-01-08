@@ -15,9 +15,9 @@ I tried to make this to use default python3 with no extra requirements. However 
 1. Put the api key in the file and save, which will save to `~/.config/wanikani.com/api.key`
 1. Copy `wanikani.15m.py` into your BitBar Folder (or use the included Enabled!)
 
-## BunPro (Grammar)
+## Bunpro (Grammar)
 
-1. Get your api key [from your BunPro settings page](https://bunpro.jp/)
+1. Get your api key [from your Bunpro settings page](https://bunpro.jp/)
 1. Open Terminal.app and run `mkdir -p  ~/.config/bunpro.jp/ && open -a TextEdit.app ~/.config/bunpro.jp/api.key`
 1. Put the api key in the file and save, which will save to `~/.config/bunpro.jp/api.key`
 1. Copy `bunpro.15m.py` into your BitBar Folder (or use the included Enabled!)

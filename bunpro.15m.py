@@ -30,13 +30,10 @@ def get(url, apikey):
 
 def parse_queue(study_data):
     info = {}
-
     user = study_data['user_information']
     info['name'] = user['username']
     info['ghosts'] = user['ghost_review_count']
-
     info['reviews'] = study_data['requested_information']['reviews_available']
-
     return info
 
 

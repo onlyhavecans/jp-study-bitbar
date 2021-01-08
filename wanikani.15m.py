@@ -14,17 +14,30 @@
 
 import json
 import os
+from urllib.error import HTTPError, URLError
 from urllib.request import urlopen, Request
 
 API_KEY = os.path.expanduser('~/.config/wanikani.com/api.key')
 SUMMARY_ENDPOINT = 'https://api.wanikani.com/v2/summary'
 
 
+def error(message):
+    print('WK: X')
+    print('---')
+    print(message)
+    exit()
+
+
 def get(url, apikey):
     r = Request(url, method='GET')
     r.add_header('Authorization', f"Bearer {apikey}")
     r.add_header('Wanikani-Revision', '20170710')
-    result = urlopen(r).read()
+    try:
+        result = urlopen(r).read()
+    except HTTPError as e:
+        error(f"Status: {e.code}: {e.reason}")
+    except URLError as e:
+        error(f"Error {e.reason}")
     return json.loads(result)
 
 
@@ -37,10 +50,7 @@ def parse_counts(study_data):
 
 if __name__ == '__main__':
     if not os.path.exists(API_KEY):
-        print('X')
-        print('---')
-        print('Missing API Key')
-        exit()
+        error('Missing API Key')
 
     with open(API_KEY) as key_file:
         key = key_file.read().strip()

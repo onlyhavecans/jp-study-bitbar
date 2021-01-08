@@ -14,17 +14,30 @@
 
 import json
 import os
+from urllib.error import HTTPError, URLError
 from urllib.request import urlopen, Request
 
 API_KEY = os.path.expanduser('~/.config/bunpro.jp/api.key')
 ENDPOINT = 'https://bunpro.jp/api/user/{0}/study_queue'
 
 
+def error(message):
+    print('BP: X')
+    print('---')
+    print(message)
+    exit()
+
+
 def get(url, apikey):
     u = url.format(apikey)
     r = Request(u, method='GET')
     r.add_header('User-Agent', 'Mozilla/5.0 (X11; U; Linux i686) Gecko/20071127 Firefox/2.0.0.11')
-    result = urlopen(r).read()
+    try:
+        result = urlopen(r).read()
+    except HTTPError as e:
+        error(f"Status: {e.code}: {e.reason}")
+    except URLError as e:
+        error(f"Error {e.reason}")
     return json.loads(result)
 
 
@@ -39,10 +52,7 @@ def parse_queue(study_data):
 
 if __name__ == '__main__':
     if not os.path.exists(API_KEY):
-        print('X')
-        print('---')
-        print('Missing API Key')
-        exit()
+        error('Missing API Key')
 
     with open(API_KEY) as key_file:
         key = key_file.read().strip()

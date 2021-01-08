@@ -7,7 +7,6 @@
 # <bitbar.author.github>onlyhavecans</bitbar.author.github>
 # <bitbar.desc>Shows available lessons and reviews with links in menu</bitbar.desc>
 # <bitbar.dependencies>python</bitbar.dependencies>
-# <bitbar.abouturl>http://url-to-about.com/</bitbar.abouturl>
 
 # To install, you will want to generate an API key and store the
 # key in ~/.config/wanikani.com/api.key

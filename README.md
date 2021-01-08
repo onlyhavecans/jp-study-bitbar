@@ -4,20 +4,20 @@ These are some plugins for helping keep on top of Japanese study resources I use
 
 ## Requirements
 
-You will need to have [BitBar](https://github.com/matryer/bitbar)
+You will need to install [BitBar](https://github.com/matryer/bitbar)
 
-You will need python (you probably already have this on most macs)
+I tried to make this to use default python3 with no extra requirements. However older macOS might not have python3. If you are having issues and are not sure try opening Terminal.app and running the command `python3 --version`. If that command gives you a sad, you may need to [install python3](https://www.python.org/downloads/)
 
 ## WaniKani (Kanji)
 
-I have no idea how this is the first plugin I have found that uses APIv2.
-
 1. Get your read-only v2 api key [from WaniKani](https://www.wanikani.com/settings/personal_access_tokens)
-1. Put the api key in `~/.config/wanikani.com/api.key` (you may need to make folders)
-1. Copy `wanikani.15m.py` into your BitBar Folder (or use the included Enabled!) 
+1. Open Terminal.app and run `mkdir -p ~/.config/wanikani.com/ && open -a TextEdit.app ~/.config/wanikani.com/api.key`
+1. Put the api key in the file and save, which will save to `~/.config/wanikani.com/api.key`
+1. Copy `wanikani.15m.py` into your BitBar Folder (or use the included Enabled!)
 
 ## BunPro (Grammar)
 
 1. Get your api key [from your BunPro settings page](https://bunpro.jp/)
-1. Put the api key in `~/.config/bunpro.jp/api.key` (you may need to make folders)
-1. Copy `bunpro.15m.py` into your BitBar Folder (or use the included Enabled!) 
+1. Open Terminal.app and run `mkdir -p  ~/.config/bunpro.jp/ && open -a TextEdit.app ~/.config/bunpro.jp/api.key`
+1. Put the api key in the file and save, which will save to `~/.config/bunpro.jp/api.key`
+1. Copy `bunpro.15m.py` into your BitBar Folder (or use the included Enabled!)

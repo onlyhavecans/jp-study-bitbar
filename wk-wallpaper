@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+## Declare all my vars up front
+date="$(date '+%Y-%m-%d')"
+desktop='1'
+dir="$(dirname "${0}")"
+key=''
+keyfile="${HOME}/.config/wanikani.com/api.key"
+output_file="wanikani-paper-${date}.png"
+user_agent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
+
+print_usage() {
+  echo "Usage: ${0} [-o output dir] [-d desktop #] [-a apikey]"
+  exit 1
+}
+
+while getopts 'o:d:a:' flag; do
+  case "${flag}" in
+    o) dir="${OPTARG}";;
+    d) desktop="${OPTARG}";;
+    a) key="${OPTARG}";;
+    *) print_usage ;;
+  esac
+done
+
+## Must have the key
+if [[ ! "${key}" =~ ^[a-z-]+$ ]]; then
+  if [[ ! -f "${keyfile}" ]]; then
+    echo "!!! You must have ${keyfile} with the apikey or use -a"
+  fi
+  key=$(tr -d '\r\n' < "${keyfile}")
+fi
+
+curl --silent --output "${dir}/${output_file}" --user-agent "${user_agent}" \
+"https://wkw.natural20design.com/?k=${key}&d=${desktop}"

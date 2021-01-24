@@ -24,11 +24,17 @@ while getopts 'o:d:a:' flag; do
 done
 
 ## Must have the key
-if [[ ! "${key}" =~ ^[a-z-]+$ ]]; then
+if [[ "${key}" == '' ]]; then
   if [[ ! -f "${keyfile}" ]]; then
     echo "!!! You must have ${keyfile} with the apikey or use -a"
+    exit 1
   fi
   key=$(tr -d '\r\n' < "${keyfile}")
+fi
+
+if [[ ! "${key}" =~ ^[a-z0-9-]+$ ]]; then
+  echo "!!! Sorry your API key is invalid"
+  exit 1
 fi
 
 curl --silent --output "${dir}/${output_file}" --user-agent "${user_agent}" \

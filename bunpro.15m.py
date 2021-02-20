@@ -38,7 +38,8 @@ def get(url, apikey):
         error(f"Status: {e.code}: {e.reason}")
     except URLError as e:
         error(f"Error {e.reason}")
-    return json.loads(result)
+    else:
+        return json.loads(result)
 
 
 def parse_queue(study_data):

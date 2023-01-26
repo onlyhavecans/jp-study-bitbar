@@ -4,7 +4,7 @@ These are some plugins for helping keep on top of Japanese study resources I use
 
 ## Requirements
 
-You will need to install [BitBar](https://github.com/matryer/bitbar) or [SwiftBar](https://swiftbar.app). Both work well.
+You will need to install [xBar](https://github.com/matryer/xbar) or [SwiftBar](https://swiftbar.app). Both work well.
 
 I tried to make this to use default python3 with no extra requirements. However older macOS might not have python3. If you are having issues and are not sure try opening Terminal.app and running the command `python3 --version`. If that command gives you a sad, you may need to [install python3](https://www.python.org/downloads/)
 

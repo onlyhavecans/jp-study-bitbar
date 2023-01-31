@@ -1,26 +1,24 @@
-# Japanese Study BitBar Plugins
+# Japanese Study ~~BitBar~~ xBar Plugins
 
 These are some plugins for helping keep on top of Japanese study resources I use.
 
 ## Requirements
 
-You will need to install [xBar](https://xbarapp.com) or [SwiftBar](https://swiftbar.app). Both work well.
+You will need to install [xBar](https://xbarapp.com)
 
 I tried to make this to use default python3 with no extra requirements. Many version of macOS do not come with python3, or may not have python at all. If you are having issues and are not sure try opening Terminal.app and running the command `python3 --version`. If that command gives you a sad, you may need to [install python3](https://www.python.org/downloads/)
 
 ## WaniKani (Kanji)
 
 1. Get your read-only v2 api key [from WaniKani](https://www.wanikani.com/settings/personal_access_tokens)
-1. Open Terminal.app and run `mkdir -p ~/.config/wanikani.com/ && open -a TextEdit.app ~/.config/wanikani.com/api.key`
-1. Put the api key in the file and save, which will save to `~/.config/wanikani.com/api.key`
-1. Copy `wanikani.15m.py` into your BitBar Folder (or use the included Enabled!)
+1. Copy `wanikani.15m.py` into your xBar Folder
+1. Click `Open Plugin` in the plugin's dropdown and fill out the API_KEY in settings
 
 ## Bunpro (Grammar)
 
-1. Get your api key [from your Bunpro settings page](https://bunpro.jp/)
-1. Open Terminal.app and run `mkdir -p  ~/.config/bunpro.jp/ && open -a TextEdit.app ~/.config/bunpro.jp/api.key`
-1. Put the api key in the file and save, which will save to `~/.config/bunpro.jp/api.key`
-1. Copy `bunpro.15m.py` into your BitBar Folder (or use the included Enabled!)
+1. Get your api key [from your Bunpro api page](https://bunpro.jp/settings/api)
+1. Copy `bunpro.15m.py` into your xBar Folder
+1. Click `Open Plugin` in the plugin's dropdown and fill out the API_KEY in settings
 
 ## Bonus
 

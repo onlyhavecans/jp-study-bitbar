@@ -1,23 +1,22 @@
 #!/usr/bin/env PYTHONIOENCODING=UTF-8 python3
 # -*- coding: utf-8 -*-
 
-# <bitbar.title>BunPro BitBar</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
-# <bitbar.author>Amelia Aronsohn</bitbar.author>
-# <bitbar.author.github>onlyhavecans</bitbar.author.github>
-# <bitbar.desc>Shows available lessons and reviews with links</bitbar.desc>
-# <bitbar.dependencies>python</bitbar.dependencies>
+# <xbar.title>BunPro</xbar.title>
+# <xbar.version>v1.0</xbar.version>
+# <xbar.author>Amelia Aronsohn</xbar.author>
+# <xbar.author.github>onlyhavecans</xbar.author.github>
+# <xbar.desc>Shows available lessons and reviews with links</xbar.desc>
+# <xbar.dependencies>python</xbar.dependencies>
+# <xbar.var>string(API_KEY): Your Bunpro API key</xbar.environment>
 
-# To install, you will want to generate an API key and store the
-# key in ~/.config/bunpro.jp/api.key
-# https://bunpro.jp/ Click Account -> Setting
+# To generate an API key for this plugin's Settings
+# https://bunpro.jp/settings/api
 
 import json
 import os
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-API_KEY = os.path.expanduser("~/.config/bunpro.jp/api.key")
 ENDPOINT = "https://bunpro.jp/api/user/{0}/study_queue"
 
 
@@ -57,20 +56,19 @@ def parse_queue(study_data: dict[str, dict[str, str]]) -> dict[str, str]:
 
 
 if __name__ == "__main__":
-    if not os.path.exists(API_KEY):
+    api_key = os.getenv("API_KEY", None)
+    if not api_key:
         error("Missing API Key")
 
-    with open(API_KEY) as key_file:
-        key = key_file.read().strip()
-        summary = get(ENDPOINT, key)
-        counts = parse_queue(summary)
+    summary = get(ENDPOINT, api_key)
+    counts = parse_queue(summary)
 
-        print(f"BP: {counts['reviews']}")
-        print("---")
+    print(f"BP: {counts['reviews']}")
+    print("---")
 
-        print("REVIEWS | size=10")
-        print(f"Reviews - {counts['reviews']} | href=https://bunpro.jp/study")
+    print("REVIEWS | size=10")
+    print(f"Reviews - {counts['reviews']} | href=https://bunpro.jp/study")
 
-        print("---")
-        print(f"You have {counts['ghosts']} Ghosts!")
-        print("Lessons | href=https://bunpro.jp/learn")
+    print("---")
+    print(f"You have {counts['ghosts']} Ghosts!")
+    print("Lessons | href=https://bunpro.jp/learn")

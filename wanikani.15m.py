@@ -1,15 +1,15 @@
 #!/usr/bin/env PYTHONIOENCODING=UTF-8 python3
 # -*- coding: utf-8 -*-
 
-# <bitbar.title>WaniKani BitBar</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
-# <bitbar.author>Amelia Aronsohn</bitbar.author>
-# <bitbar.author.github>onlyhavecans</bitbar.author.github>
-# <bitbar.desc>Shows available lessons and reviews with links</bitbar.desc>
-# <bitbar.dependencies>python</bitbar.dependencies>
+# <xbar.title>WaniKani xbar</xbar.title>
+# <xbar.version>v1.0</xbar.version>
+# <xbar.author>Amelia Aronsohn</xbar.author>
+# <xbar.author.github>onlyhavecans</xbar.author.github>
+# <xbar.desc>Shows available lessons and reviews with links</xbar.desc>
+# <xbar.dependencies>python</xbar.dependencies>
+# <xbar.var>string(API_KEY): Your WaniKani API key</xbar.environment>
 
-# To install, you will want to generate an API key and store the
-# key in ~/.config/wanikani.com/api.key
+# To generate an API key for this plugin's Settings
 # https://www.wanikani.com/settings/personal_access_tokens
 
 import json
@@ -17,7 +17,6 @@ import os
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-API_KEY = os.path.expanduser("~/.config/wanikani.com/api.key")
 SUMMARY_ENDPOINT = "https://api.wanikani.com/v2/summary"
 
 
@@ -50,18 +49,17 @@ def parse_counts(study_data):
 
 
 if __name__ == "__main__":
-    if not os.path.exists(API_KEY):
+    api_key = os.getenv("API_KEY", None)
+    if not api_key:
         error("Missing API Key")
 
-    with open(API_KEY) as key_file:
-        key = key_file.read().strip()
-        summary = get(SUMMARY_ENDPOINT, key)
-        counts = parse_counts(summary)
+    summary = get(SUMMARY_ENDPOINT, api_key)
+    counts = parse_counts(summary)
 
-        print(f"WK: L:{counts['lessons']} R:{counts['reviews']}")
-        print("---")
+    print(f"WK: L:{counts['lessons']} R:{counts['reviews']}")
+    print("---")
 
-        print("LESSONS & REVIEWS | size=10")
+    print("LESSONS & REVIEWS | size=10")
 
-        print(f"Lessons - {counts['lessons']} | href=https://www.wanikani.com/lesson")
-        print(f"Reviews - {counts['reviews']} | href=https://www.wanikani.com/review")
+    print(f"Lessons - {counts['lessons']} | href=https://www.wanikani.com/lesson")
+    print(f"Reviews - {counts['reviews']} | href=https://www.wanikani.com/review")

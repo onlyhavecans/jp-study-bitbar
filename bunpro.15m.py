@@ -21,14 +21,16 @@ API_KEY = os.path.expanduser("~/.config/bunpro.jp/api.key")
 ENDPOINT = "https://bunpro.jp/api/user/{0}/study_queue"
 
 
-def error(message):
+def error(message: str):
+    """Set the titlebar to BP: X, print the message in the dropdown menu, and exit"""
     print("BP: X")
     print("---")
     print(message)
     exit()
 
 
-def get(url, apikey):
+def get(url: str, apikey: str) -> dict[str, dict[str, str]]:
+    """Retrieve the API request and return parsed JSON, or report error and exit"""
     u = url.format(apikey)
     r = Request(u, method="GET")
     r.add_header(
@@ -44,7 +46,8 @@ def get(url, apikey):
         return json.loads(result)
 
 
-def parse_queue(study_data):
+def parse_queue(study_data: dict[str, dict[str, str]]) -> dict[str, str]:
+    """Parse bunpro api request down to name, ghosts, & reviews available"""
     info = {}
     user = study_data["user_information"]
     info["name"] = user["username"]

@@ -67,8 +67,8 @@ if __name__ == "__main__":
     print("---")
 
     print("REVIEWS | size=10")
-    print(f"Reviews - {counts['reviews']} | href=https://bunpro.jp/study")
+    print(f"Reviews - {counts['reviews']} | href=https://bunpro.jp/beta/reviews")
 
     print("---")
     print(f"You have {counts['ghosts']} Ghosts!")
-    print("Lessons | href=https://bunpro.jp/learn")
+    print("Lessons | href=https://bunpro.jp/beta/learn")

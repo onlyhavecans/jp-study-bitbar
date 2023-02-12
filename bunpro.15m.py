@@ -52,6 +52,8 @@ def parse_queue(study_data: dict[str, dict[str, str]]) -> dict[str, str]:
     info["name"] = user["username"]
     info["ghosts"] = user["ghost_review_count"]
     info["reviews"] = study_data["requested_information"]["reviews_available"]
+    info["hour"] = study_data["requested_information"]["reviews_available_next_hour"]
+    info["day"] = study_data["requested_information"]["reviews_available_next_day"]
     return info
 
 
@@ -67,7 +69,9 @@ if __name__ == "__main__":
     print("---")
 
     print("REVIEWS | size=10")
-    print(f"Reviews - {counts['reviews']} | href=https://bunpro.jp/beta/reviews")
+    print(f"Reviews Now: {counts['reviews']} | href=https://bunpro.jp/beta/reviews")
+    print(f"Reviews Next Hour: {counts['hour']}")
+    print(f"Reviews Next Day: {counts['day']}")
 
     print("---")
     print(f"You have {counts['ghosts']} Ghosts!")

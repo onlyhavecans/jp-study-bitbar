@@ -14,6 +14,7 @@
 
 import json
 import os
+import sys
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -24,10 +25,9 @@ def error(message):
     print("WK: X")
     print("---")
     print(message)
-    exit()
 
 
-def get(url, apikey):
+def get(url, apikey) -> dict | None:
     r = Request(url, method="GET")
     r.add_header("Authorization", f"Bearer {apikey}")
     r.add_header("Wanikani-Revision", "20170710")
@@ -41,7 +41,7 @@ def get(url, apikey):
         return json.loads(result)
 
 
-def parse_counts(study_data):
+def parse_counts(study_data) -> dict:
     info = study_data["data"]
     lesson_count = len(info["lessons"][0]["subject_ids"])
     review_count = len(info["reviews"][0]["subject_ids"])
@@ -50,10 +50,14 @@ def parse_counts(study_data):
 
 if __name__ == "__main__":
     api_key = os.getenv("API_KEY", None)
-    if not api_key:
+    if api_key is None:
         error("Missing API Key")
+        sys.exit()
 
     summary = get(SUMMARY_ENDPOINT, api_key)
+    if summary is None:
+        sys.exit()
+
     counts = parse_counts(summary)
 
     print(f"WK: L:{counts['lessons']} R:{counts['reviews']}")

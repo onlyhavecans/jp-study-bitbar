@@ -14,6 +14,7 @@
 
 import json
 import os
+import sys
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -21,14 +22,13 @@ ENDPOINT = "https://bunpro.jp/api/user/{0}/study_queue"
 
 
 def error(message: str):
-    """Set the titlebar to BP: X, print the message in the dropdown menu, and exit"""
+    """Set the titlebar to BP: X, print the message in the dropdown menu"""
     print("BP: X")
     print("---")
     print(message)
-    exit()
 
 
-def get(url: str, apikey: str) -> dict[str, dict[str, str]]:
+def get(url: str, apikey: str) -> dict[str, dict[str, str]] | None:
     """Retrieve the API request and return parsed JSON, or report error and exit"""
     u = url.format(apikey)
     r = Request(u, method="GET")
@@ -59,10 +59,14 @@ def parse_queue(study_data: dict[str, dict[str, str]]) -> dict[str, str]:
 
 if __name__ == "__main__":
     api_key = os.getenv("API_KEY", None)
-    if not api_key:
+    if api_key is None:
         error("Missing API Key")
+        sys.exit()
 
     summary = get(ENDPOINT, api_key)
+    if summary is None:
+        sys.exit()
+
     counts = parse_queue(summary)
 
     print(f"BP: {counts['reviews']}")

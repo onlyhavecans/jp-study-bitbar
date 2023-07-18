@@ -1,5 +1,4 @@
-#!/usr/bin/env PYTHONIOENCODING=UTF-8 python3
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 
 # <xbar.title>BunPro</xbar.title>
 # <xbar.version>v1.0</xbar.version>
@@ -7,7 +6,7 @@
 # <xbar.author.github>onlyhavecans</xbar.author.github>
 # <xbar.desc>Shows available lessons and reviews with links</xbar.desc>
 # <xbar.dependencies>python</xbar.dependencies>
-# <xbar.var>string(API_KEY): Your Bunpro API key</xbar.environment>
+# <xbar.var>string(BUNPRO_API_KEY): Your Bunpro API key</xbar.environment>
 
 # To generate an API key for this plugin's Settings
 # https://bunpro.jp/settings/api
@@ -15,6 +14,7 @@
 import json
 import os
 import sys
+import typing
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -28,7 +28,7 @@ def error(message: str):
     print(message)
 
 
-def get(url: str, apikey: str) -> dict[str, dict[str, str]] | None:
+def get(url: str, apikey: str) -> typing.Union[dict[str, dict[str, str]], None]:
     """Retrieve the API request and return parsed JSON, or report error and exit"""
     u = url.format(apikey)
     r = Request(u, method="GET")
@@ -58,9 +58,9 @@ def parse_queue(study_data: dict[str, dict[str, str]]) -> dict[str, str]:
 
 
 if __name__ == "__main__":
-    api_key = os.getenv("API_KEY", None)
+    api_key = os.getenv("BUNPRO_API_KEY", None)
     if api_key is None:
-        error("Missing API Key")
+        error("BUNPRO_API_KEY is unset in env")
         sys.exit()
 
     summary = get(ENDPOINT, api_key)

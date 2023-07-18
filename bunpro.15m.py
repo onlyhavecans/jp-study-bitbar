@@ -73,10 +73,10 @@ if __name__ == "__main__":
     print("---")
 
     print("REVIEWS | size=10")
-    print(f"Reviews Now: {counts['reviews']} | href=https://bunpro.jp/beta/reviews")
+    print(f"Reviews Now: {counts['reviews']} | href=https://bunpro.jp/reviews")
     print(f"Reviews Next Hour: {counts['hour']}")
     print(f"Reviews Next Day: {counts['day']}")
 
     print("---")
     print(f"You have {counts['ghosts']} Ghosts!")
-    print("Lessons | href=https://bunpro.jp/beta/learn")
+    print("Lessons | href=https://bunpro.jp/learn")

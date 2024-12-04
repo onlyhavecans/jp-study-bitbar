@@ -21,13 +21,13 @@ from urllib.request import Request, urlopen
 SUMMARY_ENDPOINT = "https://api.wanikani.com/v2/summary"
 
 
-def error(message):
+def error(message: str) -> None:
     print("WK: X")
     print("---")
     print(message)
 
 
-def get(url, apikey) -> dict | None:
+def get(url: str, apikey: str) -> dict[str, str] | None:
     r = Request(url, method="GET")
     r.add_header("Authorization", f"Bearer {apikey}")
     r.add_header("Wanikani-Revision", "20170710")
@@ -41,7 +41,7 @@ def get(url, apikey) -> dict | None:
         return json.loads(result)
 
 
-def parse_counts(study_data) -> dict:
+def parse_counts(study_data) -> dict[str, int]:
     info = study_data["data"]
     lesson_count = len(info["lessons"][0]["subject_ids"])
     review_count = len(info["reviews"][0]["subject_ids"])

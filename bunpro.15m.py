@@ -14,7 +14,6 @@
 import json
 import os
 import sys
-import typing
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -28,7 +27,7 @@ def error(message: str):
     print(message)
 
 
-def get(url: str, apikey: str) -> typing.Union[dict[str, dict[str, str]], None]:
+def get(url: str, apikey: str) -> dict[str, dict[str, str]] | None:
     """Retrieve the API request and return parsed JSON, or report error and exit"""
     u = url.format(apikey)
     r = Request(u, method="GET")
@@ -47,7 +46,7 @@ def get(url: str, apikey: str) -> typing.Union[dict[str, dict[str, str]], None]:
 
 def parse_queue(study_data: dict[str, dict[str, str]]) -> dict[str, str]:
     """Parse bunpro api request down to name, ghosts, & reviews available"""
-    info = {}
+    info: dict[str, str] = {}
     user = study_data["user_information"]
     info["name"] = user["username"]
     info["ghosts"] = user["ghost_review_count"]
